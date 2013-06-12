@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Mobi Cart</string>
+    <string name="menu_settings">Settings</string>
+	<string name="menu_cart">My Cart</string>
+	<string name="menu_my_account">My Account</string>
+	<string name="menu_search">Search</string>
+	<string name="search_empty">No Results</string>
+	<string name="menu_checkout">Checkout</string>
+	<string name="menu_wishlist">Add to Wishlist</string>
+	<string name="total">Total</string>
+	<string name="remove_cart_item">Remove Cart Item</string>
+	<string name="cart_empty">Empty Cart</string>
+	<string name="wishlist_empty">Wishlist Empty</string>
+	<string name="select_quantity">Select Quantity</string>
+	<string name="add_to_cart">Add to Cart</string>
+	<string name="cancel">Cancel</string>
+	<string name="remove_all">Remove All</string>
+	<string name="payment">Payment</string>
+	<string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.</string>
+	<string name="in_stock">In Stock</string>
+	<string name="out_of_stock">Out Of Stock</string>
+	<string name="first_name">First Name</string>
+	<string name="last_name">Last Name</string>
+	<string name="save">Save</string>
+	<string name="change_password">Change Password</string>
+	<string name="clear_history">Clear Order History</string>
+	<string name="address">Address</string>
+	<string name="email">Email ID</string>
+	<string name="phone">Phone</string>
+	<string name="dob">Dec 20, 1989</string>
+	<string name="profile_image">Profile Image</string>
+	<string name="back">Back</string>
+	<string name="forward">Forward</string>
+	<string name="feature_not_available">Feature not available</string>
+	<string name="about">About</string>
+	<string name="version">Preview Version</string>
+	<string name="version_details">Application version details</string>
+	<string name="manage">Manage</string>
+	<string name="manage_details">Manage application resources</string>
+	<string name="network_error">Network Error</string>
+	
+	<string name="msg_added_to_cart">Item added to cart</string>
+	<string name="msg_remove_from_cart">Item removed from cart</string>
+	<string name="msg_remove_all_cart">All cart items removed</string>
+	<string name="msg_remove_all_wishlist">All wishlist items removed</string>
+	<string name="msg_profile_saved">Changes saved successfully</string>
+	<string name="msg_added_wishlist">Added to wishlist</string>
+	<string name="msg_remove_wishlist">Removed from wishlist</string>
+	<string name="msg_enter_search">Search field empty</string>
+	<string name="msg_out_of_stock">This item is out of stock!</string>
+	
+	<string name="error_server_data_fetching">Error while fetching data from the server</string>
+	
+	<string-array name="my_account_list">
+	    <item>Edit Profile</item>
+	    <item>Wishlist</item>
+	    <item>Order History</item>
+	    <item>Help</item>
+	</string-array>
+	
+	<string-array name="filter_list">
+	    <item>Popularity</item>
+	    <item>Name</item>
+	    <item>Price</item>
+	</string-array>
+</resources>

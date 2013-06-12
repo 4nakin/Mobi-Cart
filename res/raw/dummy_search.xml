@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<response currency="INR">
+    <category name="Search">
+        <shop-item>
+            <item-code>LGPN4123</item-code>
+	        <title>LG Nexus 4</title>
+	        <vendor>LG</vendor>
+	        <item-category>Mobile Phones</item-category>
+	        <description>For an Android experience at its purest, look no further than Google latest flagship device, the sleek, undulated Nexus 4 from LG. Navigating your world, with this incredible device in hand  is sure to become all the simpler thanks to all the cool features its been packed with. The much-awaited Nexus 4 will cater to the smartphone geek every fantasy, with cutting edge graphics, an HD display and a lightning-fast processor, suited to make the everyday little more exciting.</description>
+	        <price>25990</price>
+	        <available>1</available>
+	        <max-quantity>5</max-quantity>
+	        <images>
+	            <image>http://img8.flixcart.com/image/mobile/y/z/d/lg-google-nexus-google-nexus-4-400x400-imadkwfmvheb5zht.jpeg</image>
+	            <image>http://img8.flixcart.com/image/mobile/y/z/d/lg-google-nexus-google-nexus-4-400x400-imadkwfn3by6eahg.jpeg</image>
+	        </images>
+	    </shop-item>
+	    <shop-item>
+	        <item-code>DNBI4123</item-code>
+	        <title>Inferno</title>
+	        <vendor>Dan Brown</vendor>
+	        <item-category>Books</item-category>
+	        <description>Dan Brown is back with his latest novel featuring the famed Harvard symbologist Robert Langdon. Set in the heart of Europe, Langdon is accompanied by a mysterious woman, Sienna Brooks, as they journey around classical Renaissance masterpieces, trying to unravel a code.</description>
+	        <price>500</price>
+	        <available>1</available>
+	        <max-quantity>50</max-quantity>
+	        <images>
+	            <image>http://img8.flixcart.com/image/book/4/9/3/inferno-the-new-robert-langdon-thriller-400x400-imadgccf5srhzrqk.jpeg</image>
+	        </images>
+	    </shop-item>
+	    <shop-item>
+	        <item-code>DBBTH4123</item-code>
+	        <title>The Hit</title>
+	        <vendor>David Baldacci</vendor>
+	        <item-category>Books</item-category>
+	        <description>When government hit man Will Robie is given his next target he knows hes about to embark on his toughest mission yet. He is tasked with killing one of their own, following evidence to suggest that fellow assassin Jessica Reel has been turned. Shes leaving a trail of death in her wake including her handler.</description>
+	        <price>384</price>
+	        <available>1</available>
+	        <max-quantity>15</max-quantity>
+	        <images>
+	            <image>http://img7.flixcart.com/image/book/9/0/2/the-hit-400x400-imadku9feqx8zkjz.jpeg</image>
+	        </images>
+	    </shop-item>
+    </category>
+</response>

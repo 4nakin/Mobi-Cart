@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+    <TextView
+        android:id="@+id/wishlist_empty_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/wishlist_remove_all_btn"
+        android:animateLayoutChanges="true"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="@string/wishlist_empty"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="36sp"
+        android:visibility="gone" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/wishlist_remove_all_btn" 
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:id="@+id/wishlist_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            android:divider="?android:dividerHorizontal"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:showDividers="middle" />
+
+    </ScrollView>
+    
+    <Button
+        android:id="@+id/wishlist_remove_all_btn"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:selectableItemBackground"
+        android:fontFamily="sans-serif-light"
+        android:text="@string/remove_all" />
+    
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="7dp"
+        android:layout_alignTop="@+id/wishlist_remove_all_btn"
+        android:background="@drawable/shape_shadow" />
+
+</RelativeLayout>

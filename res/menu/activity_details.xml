@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+    <item
+        android:id="@+id/menu_detials_add_wishlist"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:icon="@drawable/ic_action_add_wishlist"
+        android:title="@string/menu_wishlist"/>
+    
+    <item
+        android:id="@+id/menu_detials_goto_cart"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:icon="@drawable/ic_action_checkout"
+        android:title="@string/menu_cart"/>
+</menu>

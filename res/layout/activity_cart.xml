@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/cart_header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="3dp"
+            android:fontFamily="sans-serif-light"
+            android:gravity="left"
+            android:text="@string/total"
+            android:textSize="28sp" />
+
+        <TextView
+            android:id="@+id/cart_total_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:gravity="right"
+            android:textColor="@android:color/holo_green_dark"
+            android:textSize="28sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="7dp"
+        android:layout_below="@+id/cart_header_layout"
+        android:background="@drawable/shape_shadow" />
+
+    <TextView
+        android:id="@+id/cart_empty_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/cart_footer_layout"
+        android:layout_below="@+id/cart_header_layout"
+        android:animateLayoutChanges="true"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="@string/cart_empty"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="36sp"
+        android:visibility="gone" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/cart_footer_layout"
+        android:layout_below="@+id/cart_header_layout"
+        android:overScrollMode="never" >
+
+        <LinearLayout
+            android:id="@+id/cart_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            android:divider="?android:dividerHorizontal"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:showDividers="middle" />
+    </ScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="7dp"
+        android:layout_alignTop="@+id/cart_footer_layout"
+        android:background="@drawable/shape_shadow" />
+
+    <LinearLayout
+        android:id="@+id/cart_footer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:divider="?android:dividerVertical"
+        android:dividerPadding="5dp"
+        android:orientation="horizontal"
+        android:showDividers="middle" >
+
+        <Button
+            android:id="@+id/cart_remove_all_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="?android:selectableItemBackground"
+            android:drawableLeft="@drawable/ic_action_remove_from_cart"
+            android:fontFamily="sans-serif-light"
+            android:text="@string/remove_all" />
+
+        <Button
+            android:id="@+id/cart_payment_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="?android:selectableItemBackground"
+            android:drawableRight="@drawable/ic_action_next"
+            android:fontFamily="sans-serif-light"
+            android:text="@string/payment" />
+    </LinearLayout>
+
+</RelativeLayout>
