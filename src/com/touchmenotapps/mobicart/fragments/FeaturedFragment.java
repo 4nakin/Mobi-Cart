@@ -4,25 +4,20 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-
-import org.xml.sax.InputSource;
-import org.xml.sax.XMLReader;
-
 import com.touchmenotapps.mobicart.DetailsActivity;
 import com.touchmenotapps.mobicart.R;
 import com.touchmenotapps.mobicart.model.ShopData;
 import com.touchmenotapps.mobicart.util.AnimationUtil;
-import com.touchmenotapps.mobicart.util.CategoryXMLHandler;
+import com.touchmenotapps.mobicart.util.FeaturedDataLoader;
 import com.touchmenotapps.mobicart.util.NetworkUtil;
 import com.touchmenotapps.mobicart.widgets.TouchHighlightImageButton;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,11 +26,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewAnimator;
 
-public class HomeFragment extends Fragment {
+public class FeaturedFragment extends Fragment implements LoaderCallbacks<ArrayList<ShopData>>{
 
+	private final int LOADER_ID = 1;
 	private View mViewHolder;
 	private ViewAnimator mFeaturedViewHolder;
-	private ArrayList<ShopData> mData = new ArrayList<ShopData>();
 	private AnimationUtil mAnimUtil;
 	private int TOTAL_BANNER_COUNT = 0;
 	private NetworkUtil mNetwokUtil;
@@ -68,9 +63,8 @@ public class HomeFragment extends Fragment {
 				} 
 			}
 		});
-		
 		mViewHolder.findViewById(R.id.featured_banner_loading).setVisibility(View.VISIBLE);
-		new RetreiveFeedTask().execute("");
+		getLoaderManager().initLoader(LOADER_ID, null, this).forceLoad();
 		return mViewHolder;
 	}
 	
@@ -121,39 +115,26 @@ public class HomeFragment extends Fragment {
 	    }
 	}
 		
-	class RetreiveFeedTask extends AsyncTask<String, Void, String> {
-        protected String doInBackground(String... urls) {
-            try {
-                //URL url= new URL(urls[0]);
-                SAXParserFactory factory =SAXParserFactory.newInstance();
-                SAXParser parser=factory.newSAXParser();
-                XMLReader xmlreader=parser.getXMLReader();
-                
-                CategoryXMLHandler mResponseHandler=new CategoryXMLHandler();
-                xmlreader.setContentHandler(mResponseHandler);
-                //InputSource is=new InputSource(url.openStream());
-                InputStream is = getResources().openRawResource(R.raw.dummy_featured);
-                xmlreader.parse(new InputSource(is));
-                mData.clear();
-                mData = mResponseHandler.getData().get(0).getShopData();
-                return "";
-            } catch (Exception e) {
-                e.printStackTrace();
-                return null;
-            }
-        }
+	@Override
+	public Loader<ArrayList<ShopData>> onCreateLoader(int arg0, Bundle arg1) {
+		return new FeaturedDataLoader(getActivity());
+	}
 
-        protected void onPostExecute(String feed) {
-        	if(feed != null) 
-        		if(mData.size() > 0) {
-        			TOTAL_BANNER_COUNT = mData.size();
-        			for(int i =0; i < mData.size(); i++) 
-        				addBannerItem(mData.get(i), i);
-        			mViewHolder.findViewById(R.id.featured_banner_loading).setVisibility(View.GONE);
-        		}
-        	else {
-        		Toast.makeText(getActivity(), R.string.error_server_data_fetching, Toast.LENGTH_LONG).show();
-        	}
-        }
-     }
+	@Override
+	public void onLoadFinished(Loader<ArrayList<ShopData>> arg0,
+			ArrayList<ShopData> data) {
+			if(data.size() > 0) {
+				TOTAL_BANNER_COUNT = data.size();
+				for(int i =0; i < data.size(); i++) 
+					addBannerItem(data.get(i), i);
+				mViewHolder.findViewById(R.id.featured_banner_loading).setVisibility(View.GONE);
+			}
+		else 
+			Toast.makeText(getActivity(), R.string.error_server_data_fetching, Toast.LENGTH_LONG).show();
+	}
+
+	@Override
+	public void onLoaderReset(Loader<ArrayList<ShopData>> arg0) {
+		mFeaturedViewHolder.removeAllViews();
+	}
 }

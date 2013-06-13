@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.touchmenotapps.mobicart.fragments.CategoriesFragment;
-import com.touchmenotapps.mobicart.fragments.HomeFragment;
+import com.touchmenotapps.mobicart.fragments.FeaturedFragment;
 import com.touchmenotapps.mobicart.fragments.ProductListFragment;
 
 /**
@@ -28,7 +28,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 			fragment = new CategoriesFragment();
 			break;
 		case 1:
-			fragment = new HomeFragment();
+			fragment = new FeaturedFragment();
 			break;
 		case 2:
 			fragment = new ProductListFragment();

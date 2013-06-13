@@ -19,6 +19,7 @@ public class UserAccountFragment extends Fragment {
 	private View mViewHolder;
 	private ImageView mProfilePic;
 	private ImageHandlerUtil mImageUtil;
+	@SuppressWarnings("unused")
 	private EditText mFirstName, mLastName, mEmail, mPhone, mAddress; 
 	
 	@Override
@@ -32,13 +33,7 @@ public class UserAccountFragment extends Fragment {
 		mEmail = (EditText) mViewHolder.findViewById(R.id.profile_edit_email_address);
 		mPhone = (EditText) mViewHolder.findViewById(R.id.profile_edit_phone);
 		mAddress = (EditText) mViewHolder.findViewById(R.id.profile_edit_address);
-		
-		mFirstName.setText("Arindam");
-		mLastName.setText("Nath");
-		mEmail.setText("dummy@dummydomain.com");
-		mPhone.setText("+1234567890");
-		mAddress.setText("Dummy Address");
-		
+				
 		mProfilePic.setImageBitmap(mImageUtil.getRoundedCornerImage(getActivity(), R.drawable.profile));
 		mProfilePic.setBackgroundDrawable(mImageUtil.getRoundedCornerBg(getActivity(), R.drawable.profile));
 		

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:baselineAligned="false"
+    android:divider="?android:dividerVertical"
+    android:dividerPadding="5dp"
+    android:orientation="horizontal"
+    android:showDividers="middle" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" >
+
+        <com.touchmenotapps.mobicart.widgets.TouchHighlightImageButton
+            android:id="@+id/detials_header_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/details_order_bar"
+            android:scaleType="center"
+            android:src="@drawable/ic_loading" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="7dp"
+            android:layout_alignTop="@+id/details_order_bar"
+            android:background="@drawable/shape_shadow" />
+
+        <LinearLayout
+            android:id="@+id/details_order_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:divider="?android:dividerVertical"
+            android:dividerPadding="5dp"
+            android:orientation="horizontal"
+            android:showDividers="middle" >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/details_title_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="left"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="5dp"
+                    android:text="@string/app_name"
+                    android:textSize="@dimen/details_title_text_size"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/details_vendor_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="left"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="5dp"
+                    android:text="@string/app_name"
+                    android:textSize="@dimen/details_sub_title_text_size"
+                    android:textColor="@android:color/darker_gray" />
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/details_purchase_btn"
+                android:layout_width="48dp"
+                android:layout_height="match_parent"
+                android:background="?android:selectableItemBackground"
+                android:contentDescription="@string/remove_cart_item"
+                android:src="@drawable/ic_action_add_to_cart" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:gravity=""
+            android:divider="?android:dividerVertical"
+            android:dividerPadding="5dp"
+            android:orientation="horizontal"
+            android:showDividers="middle" >
+
+            <TextView
+                android:id="@+id/details_price_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="left"
+                android:paddingRight="3dp"
+                android:singleLine="true"
+                android:textColor="@android:color/holo_blue_dark"
+                android:textSize="@dimen/details_price_text_size" />
+
+            <TextView
+                android:id="@+id/details_available_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:background="@android:color/holo_red_dark"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="center"
+                android:text="@string/out_of_stock"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/details_available_text_size" />
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never" >
+
+            <TextView
+                android:id="@+id/details_description_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:gravity="left"
+                android:padding="5dp"
+                android:text="@string/lorem_ipsum"
+                android:textSize="@dimen/details_description_text_size" />
+        </ScrollView>
+    </LinearLayout>
+
+</LinearLayout>

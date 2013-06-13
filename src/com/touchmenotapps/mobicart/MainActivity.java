@@ -1,7 +1,6 @@
 package com.touchmenotapps.mobicart;
 
 import com.touchmenotapps.mobicart.adapters.SectionsPagerAdapter;
-import com.touchmenotapps.mobicart.util.NetworkUtil;
 import com.touchmenotapps.mobicart.util.ZoomOutPageTransformer;
 
 import android.app.ActionBar;
@@ -18,18 +17,15 @@ public class MainActivity extends FragmentActivity implements
 
 	private SectionsPagerAdapter mSectionsPagerAdapter;
 	private ViewPager mViewPager;
-	@SuppressWarnings("unused")
-	private NetworkUtil mNetwokUtil;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		final ActionBar actionBar = getActionBar();
+		actionBar.setDisplayShowTitleEnabled(false);
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		actionBar.setBackgroundDrawable(getResources().getDrawable(R.drawable.shape_action_bar_bg));
-		mNetwokUtil = new NetworkUtil();
-		//TODO Check for internet connection before showing the tabs
 		mSectionsPagerAdapter = new SectionsPagerAdapter(
 				getSupportFragmentManager());
 		mViewPager = (ViewPager) findViewById(R.id.pager);

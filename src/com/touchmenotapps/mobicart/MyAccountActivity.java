@@ -1,25 +1,20 @@
 package com.touchmenotapps.mobicart;
 
-import java.util.ArrayList;
-
-import com.touchmenotapps.mobicart.adapters.CategoriesListAdapter;
+import com.touchmenotapps.mobicart.fragments.MyAccountCategoriesFragment;
 import com.touchmenotapps.mobicart.fragments.UserAccountFragment;
 import com.touchmenotapps.mobicart.fragments.WishlistFragment;
-import com.touchmenotapps.mobicart.model.CategoryData;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.widget.ListView;
 import android.widget.Toast;
 
-public class MyAccountActivity extends FragmentActivity {
+public class MyAccountActivity extends FragmentActivity implements MyAccountCategoriesFragment.OnCatgeorySelectedListener {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,18 +22,22 @@ public class MyAccountActivity extends FragmentActivity {
 		setContentView(R.layout.activity_my_account);
 		getActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.shape_action_bar_bg));
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-		getSupportFragmentManager()
-			.beginTransaction()
-			.replace(R.id.my_account_single_pane_container, new MyAccountCategoriesFragment())
-			.commit();
+		if(findViewById(R.id.my_account_single_pane_container) != null)
+			getSupportFragmentManager()
+				.beginTransaction()
+				.replace(R.id.my_account_single_pane_container, new MyAccountCategoriesFragment())
+				.commit();
 	}
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
-			if(getSupportFragmentManager().getBackStackEntryCount() > 0) 
-				getSupportFragmentManager().popBackStack();
+			if(findViewById(R.id.my_account_single_pane_container) != null)
+				if(getSupportFragmentManager().getBackStackEntryCount() > 0) 
+					getSupportFragmentManager().popBackStack();
+				else
+					finish();
 			else
 				finish();
 			break;
@@ -57,56 +56,55 @@ public class MyAccountActivity extends FragmentActivity {
 			return mWebView;
 		}
 	}
-	
-	public static class MyAccountCategoriesFragment extends ListFragment {
-		private CategoriesListAdapter mAdapter;
-		
-		@Override
-		public void onActivityCreated(Bundle savedInstanceState) {
-			super.onActivityCreated(savedInstanceState);
-			mAdapter = new CategoriesListAdapter(getActivity());
-			ArrayList<CategoryData> mData = new ArrayList<CategoryData>();
-			for(String data : getResources().getStringArray(R.array.my_account_list)) 
-				mData.add(new CategoryData(data, null));
-			mAdapter.setListData(mData);
-			setListAdapter(mAdapter);
-		}
-		
-		@Override
-		public void onResume() {
-			super.onResume();
-			getListView().setPadding(18, 0, 18, 0);
-		}
-		
-		@Override
-		public void onListItemClick(ListView l, View v, int position, long id) {
-			super.onListItemClick(l, v, position, id);
-			switch(position) {
-			case 0:
-				getFragmentManager()
+
+	@Override
+	public void onCategorySelected(int which) {
+		switch(which) {
+		case 0:
+			if(findViewById(R.id.my_account_single_pane_container) != null)
+				getSupportFragmentManager()
 					.beginTransaction()
 					.addToBackStack(null)
 					.replace(R.id.my_account_single_pane_container, new UserAccountFragment())
 					.commit();
-				break;
-			case 1:
-				getFragmentManager()
+			else
+				getSupportFragmentManager()
+					.beginTransaction()
+					.addToBackStack(null)
+					.replace(R.id.my_account_details_container, new UserAccountFragment())
+					.commit();
+			break;
+		case 1:
+			if(findViewById(R.id.my_account_single_pane_container) != null)
+				getSupportFragmentManager()
 					.beginTransaction()
 					.addToBackStack(null)
 					.replace(R.id.my_account_single_pane_container, new WishlistFragment())
 					.commit();
-				break;
-			case 2:
-				Toast.makeText(v.getContext(), R.string.feature_not_available, Toast.LENGTH_SHORT).show();
-				break;
-			case 3:
-				getFragmentManager()
+			else
+				getSupportFragmentManager()
+					.beginTransaction()
+					.addToBackStack(null)
+					.replace(R.id.my_account_details_container, new WishlistFragment())
+					.commit();
+			break;
+		case 2:
+			Toast.makeText(this, R.string.feature_not_available, Toast.LENGTH_SHORT).show();
+			break;
+		case 3:
+			if(findViewById(R.id.my_account_single_pane_container) != null)
+				getSupportFragmentManager()
 					.beginTransaction()
 					.addToBackStack(null)
 					.replace(R.id.my_account_single_pane_container, new MyAccountHelpFragment())
 					.commit();
-				break;
-			}
+			else
+				getSupportFragmentManager()
+					.beginTransaction()
+					.addToBackStack(null)
+					.replace(R.id.my_account_details_container, new MyAccountHelpFragment())
+					.commit();
+			break;
 		}
 	}
 }

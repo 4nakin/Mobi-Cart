@@ -1,35 +1,34 @@
 package com.touchmenotapps.mobicart.fragments;
 
-import java.io.InputStream;
-
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-
-import org.xml.sax.InputSource;
-import org.xml.sax.XMLReader;
+import java.util.ArrayList;
 
 import com.touchmenotapps.mobicart.DetailsActivity;
 import com.touchmenotapps.mobicart.R;
 import com.touchmenotapps.mobicart.adapters.ShopListAdapter;
-import com.touchmenotapps.mobicart.util.CategoryXMLHandler;
+import com.touchmenotapps.mobicart.model.ShopData;
+import com.touchmenotapps.mobicart.util.TopDealsDataLoader;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.content.Loader;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.Toast;
 
-public class ProductListFragment extends ListFragment {
+public class ProductListFragment extends ListFragment  implements LoaderCallbacks<ArrayList<ShopData>>{
 
+	private final int LOADER_ID = 3;
 	private ShopListAdapter mAdapter;
 	
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		mAdapter = new ShopListAdapter(getActivity());
-		new RetreiveFeedTask().execute("");
+		setListAdapter(mAdapter);
+		setEmptyText(getString(R.string.error_server_data_fetching));
+		setListShown(false);
+		getLoaderManager().initLoader(LOADER_ID, null, this).forceLoad();
 	}
 	
 	@Override
@@ -57,35 +56,24 @@ public class ProductListFragment extends ListFragment {
 			startActivity(intent);
 		}
 	}
-	
-	class RetreiveFeedTask extends AsyncTask<String, Void, String> {
-        protected String doInBackground(String... urls) {
-            try {
-                //URL url= new URL(urls[0]);
-                SAXParserFactory factory =SAXParserFactory.newInstance();
-                SAXParser parser=factory.newSAXParser();
-                XMLReader xmlreader=parser.getXMLReader();
-                
-                CategoryXMLHandler mResponseHandler=new CategoryXMLHandler();
-                xmlreader.setContentHandler(mResponseHandler);
-                //InputSource is=new InputSource(url.openStream());
-                InputStream is = getResources().openRawResource(R.raw.dummy_top);
-                xmlreader.parse(new InputSource(is));
-                mAdapter.setListData(mResponseHandler.getData().get(0).getShopData());
-                return "";
-            } catch (Exception e) {
-                e.printStackTrace();
-                return null;
-            }
-        }
 
-        protected void onPostExecute(String feed) {
-        	if(feed != null) 
-        		if(mAdapter.getCount() > 0) 
-        			setListAdapter(mAdapter);
-        	else {
-        		Toast.makeText(getActivity(), R.string.error_server_data_fetching, Toast.LENGTH_LONG).show();
-        	}
-        }
-     }
+	@Override
+	public Loader<ArrayList<ShopData>> onCreateLoader(int arg0, Bundle arg1) {
+		return new TopDealsDataLoader(getActivity());
+	}
+
+	@Override
+	public void onLoadFinished(Loader<ArrayList<ShopData>> arg0,
+			ArrayList<ShopData> data) {
+		mAdapter.setListData(data);
+    	if(isResumed())
+    		setListShown(true);
+    	else
+    		setListShownNoAnimation(true);
+	}
+
+	@Override
+	public void onLoaderReset(Loader<ArrayList<ShopData>> arg0) {
+		mAdapter.setListData(new ArrayList<ShopData>());
+	}
 }

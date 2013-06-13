@@ -16,25 +16,25 @@
 
         <TextView
             android:id="@+id/cart_item_title"
-            style="?android:textAppearanceMedium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-light"
-            android:paddingLeft="?android:listPreferredItemPaddingLeft" />
+            android:paddingLeft="?android:listPreferredItemPaddingLeft"
+            android:textSize="@dimen/cart_item_title_text_size" />
 
         <TextView
             android:id="@+id/cart_item_price"
-            style="?android:textAppearanceSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-condensed"
             android:paddingLeft="?android:listPreferredItemPaddingLeft"
-            android:textColor="@android:color/holo_green_dark" />
+            android:textColor="@android:color/holo_green_dark"
+            android:textSize="@dimen/cart_item_sub_title_text_size" />
     </LinearLayout>
 
     <ImageButton
         android:id="@+id/cart_item_delete_button"
-        android:layout_width="48dp"
+        android:layout_width="@dimen/cart_item_add_button_width"
         android:layout_height="match_parent"
         android:background="?android:selectableItemBackground"
         android:contentDescription="@string/remove_cart_item"

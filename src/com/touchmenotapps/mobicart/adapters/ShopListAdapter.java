@@ -24,6 +24,7 @@ public class ShopListAdapter extends BaseAdapter {
 	
 	public void setListData( ArrayList<ShopData> data) {
 		mListData = data;
+		notifyDataSetChanged();
 	}
 		
 	@Override

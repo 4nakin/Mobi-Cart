@@ -24,6 +24,7 @@ public class CategoriesListAdapter extends BaseAdapter {
 	
 	public void setListData(ArrayList<CategoryData> data) {
 		mData = data;
+		notifyDataSetChanged();
 	}
 	
 	@Override
