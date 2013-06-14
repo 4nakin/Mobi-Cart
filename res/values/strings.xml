@@ -40,6 +40,8 @@
 	<string name="manage">Manage</string>
 	<string name="manage_details">Manage application resources</string>
 	<string name="network_error">Network Error</string>
+	<string name="my_account_category_frarment">MyAccountCategoriesFragment</string>
+	<string name="shopping_list_frarment">ShoppingListFragment</string>
 	
 	<string name="msg_added_to_cart">Item added to cart</string>
 	<string name="msg_remove_from_cart">Item removed from cart</string>

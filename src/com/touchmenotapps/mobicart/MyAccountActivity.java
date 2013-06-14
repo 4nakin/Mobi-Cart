@@ -70,7 +70,6 @@ public class MyAccountActivity extends FragmentActivity implements MyAccountCate
 			else
 				getSupportFragmentManager()
 					.beginTransaction()
-					.addToBackStack(null)
 					.replace(R.id.my_account_details_container, new UserAccountFragment())
 					.commit();
 			break;
@@ -84,7 +83,6 @@ public class MyAccountActivity extends FragmentActivity implements MyAccountCate
 			else
 				getSupportFragmentManager()
 					.beginTransaction()
-					.addToBackStack(null)
 					.replace(R.id.my_account_details_container, new WishlistFragment())
 					.commit();
 			break;
@@ -95,13 +93,11 @@ public class MyAccountActivity extends FragmentActivity implements MyAccountCate
 			if(findViewById(R.id.my_account_single_pane_container) != null)
 				getSupportFragmentManager()
 					.beginTransaction()
-					.addToBackStack(null)
 					.replace(R.id.my_account_single_pane_container, new MyAccountHelpFragment())
 					.commit();
 			else
 				getSupportFragmentManager()
 					.beginTransaction()
-					.addToBackStack(null)
 					.replace(R.id.my_account_details_container, new MyAccountHelpFragment())
 					.commit();
 			break;

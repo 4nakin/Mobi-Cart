@@ -1,62 +1,90 @@
 package com.touchmenotapps.mobicart;
 
-import com.touchmenotapps.mobicart.adapters.ShopListAdapter;
-import com.touchmenotapps.mobicart.fragments.CategoriesFragment;
+import com.touchmenotapps.mobicart.fragments.ShoppingListFragment;
+import com.touchmenotapps.mobicart.fragments.ShopItemDetialsFragment;
+import com.touchmenotapps.mobicart.model.ShopData;
 
-import android.app.ListActivity;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ListView;
 
-public class ShoppingListActivity extends ListActivity {
+public class ShoppingListActivity extends Activity 
+	implements ShoppingListFragment.OnShopListItemClickListener {
 	
-	private ShopListAdapter mAdapter;
-
+	private ShopItemDetialsFragment mFragment;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_shopping_list);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.shape_action_bar_bg));
 		if(getIntent().getStringExtra("categoryName") != null)
 			getActionBar().setTitle(getIntent().getStringExtra("categoryName"));
-		mAdapter = new ShopListAdapter(this);
-		mAdapter.setListData(CategoriesFragment.mShoppingData);
-		setListAdapter(mAdapter);
+		
+		mFragment = new ShopItemDetialsFragment();
+		if(findViewById(R.id.shopping_list_single_pane_container) != null)
+			getFragmentManager()
+				.beginTransaction()
+				.replace(R.id.shopping_list_single_pane_container, new ShoppingListFragment())
+				.commit();
 	}
-	
-	@Override
-	protected void onResume() {
-		super.onResume();
-		getListView().setPadding(10, 0, 10, 0);
-	}
-	
-	@Override
-	protected void onListItemClick(ListView l, View v, int position, long id) {
-		super.onListItemClick(l, v, position, id);
-		Intent intent = new Intent(this, DetailsActivity.class);
-		intent.putExtra(DetailsActivity.TAG_ITEM_IS_WISHLIST, mAdapter.getItem(position).isWishlist());
-		intent.putExtra(DetailsActivity.TAG_ITEM_NAME, mAdapter.getItem(position).getTitle());
-		intent.putExtra(DetailsActivity.TAG_ITEM_VENDOR, mAdapter.getItem(position).getVendor());
-		intent.putExtra(DetailsActivity.TAG_ITEM_PRICE, mAdapter.getItem(position).getPrice());
-		intent.putExtra(DetailsActivity.TAG_ITEM_CURRENCY, mAdapter.getItem(position).getPriceCurrency());
-		intent.putExtra(DetailsActivity.TAG_ITEM_DESCRIPTION, mAdapter.getItem(position).getDescription());
-		intent.putExtra(DetailsActivity.TAG_ITEM_CATEGORY, mAdapter.getItem(position).getCategory());
-		intent.putExtra(DetailsActivity.TAG_ITEM_IMAGE_URLS, mAdapter.getItem(position).getURLS());
-		intent.putExtra(DetailsActivity.TAG_ITEM_AVAILABLE, mAdapter.getItem(position).getAvailable());
-		intent.putExtra(DetailsActivity.TAG_ITEM_AVAILABLE_QUATITY, mAdapter.getItem(position).getMaxQuantity());
-		intent.putExtra(DetailsActivity.TAG_ITEM_CODE, mAdapter.getItem(position).getItemCode());
-		startActivity(intent);
-	}
-	
+		
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
 			finish();
 			break;
+		case R.id.menu_detials_goto_cart:
+			startActivity(new Intent(this, CartActivity.class));
+			break;
+		case R.id.menu_detials_add_wishlist:
+			if(mFragment.isWishlist()) {
+				mFragment.setWishlist(false);
+			} else {
+				mFragment.setWishlist(true);
+			}
+			break;
 		}
 		return true;
+	}
+
+	@Override
+	public void onShopListItemClick(ShopData data) {
+		if(findViewById(R.id.shopping_list_double_pane_container) != null) {
+			Bundle argBundle = new Bundle();
+			argBundle.putBoolean(DetailsActivity.TAG_ITEM_IS_WISHLIST, data.isWishlist());
+			argBundle.putString(DetailsActivity.TAG_ITEM_NAME, data.getTitle());
+			argBundle.putString(DetailsActivity.TAG_ITEM_VENDOR, data.getVendor());
+			argBundle.putFloat(DetailsActivity.TAG_ITEM_PRICE, data.getPrice());
+			argBundle.putString(DetailsActivity.TAG_ITEM_CURRENCY, data.getPriceCurrency());
+			argBundle.putString(DetailsActivity.TAG_ITEM_DESCRIPTION, data.getDescription());
+			argBundle.putString(DetailsActivity.TAG_ITEM_CATEGORY, data.getCategory());
+			argBundle.putStringArray(DetailsActivity.TAG_ITEM_IMAGE_URLS, data.getURLS());
+			argBundle.putBoolean(DetailsActivity.TAG_ITEM_AVAILABLE, data.getAvailable());
+			argBundle.putInt(DetailsActivity.TAG_ITEM_AVAILABLE_QUATITY, data.getMaxQuantity());
+			argBundle.putString(DetailsActivity.TAG_ITEM_CODE, data.getItemCode());
+			mFragment.setArguments(argBundle);			
+			getFragmentManager()
+				.beginTransaction()
+				.replace(R.id.shopping_list_double_pane_container, mFragment)
+				.commit();
+		} else {
+			Intent intent = new Intent(this, DetailsActivity.class);
+			intent.putExtra(DetailsActivity.TAG_ITEM_IS_WISHLIST, data.isWishlist());
+			intent.putExtra(DetailsActivity.TAG_ITEM_NAME, data.getTitle());
+			intent.putExtra(DetailsActivity.TAG_ITEM_VENDOR, data.getVendor());
+			intent.putExtra(DetailsActivity.TAG_ITEM_PRICE, data.getPrice());
+			intent.putExtra(DetailsActivity.TAG_ITEM_CURRENCY, data.getPriceCurrency());
+			intent.putExtra(DetailsActivity.TAG_ITEM_DESCRIPTION, data.getDescription());
+			intent.putExtra(DetailsActivity.TAG_ITEM_CATEGORY, data.getCategory());
+			intent.putExtra(DetailsActivity.TAG_ITEM_IMAGE_URLS, data.getURLS());
+			intent.putExtra(DetailsActivity.TAG_ITEM_AVAILABLE, data.getAvailable());
+			intent.putExtra(DetailsActivity.TAG_ITEM_AVAILABLE_QUATITY, data.getMaxQuantity());
+			intent.putExtra(DetailsActivity.TAG_ITEM_CODE, data.getItemCode());
+			startActivity(intent);
+		}
 	}
 }

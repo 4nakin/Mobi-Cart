@@ -109,7 +109,7 @@ public class AppDBAdapter {
 		initialValues.put(DATABASE_TABLE_WISHLIST_TITLE, data.getTitle());
 		initialValues.put(DATABASE_TABLE_WISHLIST_DESCRIPTION, data.getDescription());
 		initialValues.put(DATABASE_TABLE_WISHLIST_VENDOR, data.getVendor());
-		initialValues.put(DATABASE_TABLE_WISHLIST_AVAILABLE, data.getAvailable());
+		initialValues.put(DATABASE_TABLE_WISHLIST_AVAILABLE, (data.getAvailable()) ? "1" : "0");
 		initialValues.put(DATABASE_TABLE_WISHLIST_MAX_QUANTITY, data.getMaxQuantity());
 		initialValues.put(DATABASE_TABLE_WISHLIST_CATEGORY, data.getCategory());
 		initialValues.put(DATABASE_TABLE_WISHLIST_PRICE, data.getPrice());

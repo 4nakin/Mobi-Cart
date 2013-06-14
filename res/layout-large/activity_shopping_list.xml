@@ -7,14 +7,14 @@
     android:showDividers="middle" >
 
     <fragment
-        android:name="com.touchmenotapps.mobicart.fragments.MyAccountCategoriesFragment"
+        android:name="com.touchmenotapps.mobicart.fragments.ShoppingListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="2"
-        android:tag="@string/my_account_category_frarment" />
+        android:tag="@string/shopping_list_frarment" />
 
     <FrameLayout
-        android:id="@+id/my_account_details_container"
+        android:id="@+id/shopping_list_double_pane_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1" />
