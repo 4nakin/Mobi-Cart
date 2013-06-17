@@ -12,8 +12,8 @@ import org.xml.sax.XMLReader;
 import com.touchmenotapps.mobicart.R;
 import com.touchmenotapps.mobicart.model.CategoryData;
 
+import android.content.AsyncTaskLoader;
 import android.content.Context;
-import android.support.v4.content.AsyncTaskLoader;
 
 public class StoreDataLoader extends AsyncTaskLoader<ArrayList<CategoryData>>{
 

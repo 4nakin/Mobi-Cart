@@ -1,22 +1,20 @@
 package com.touchmenotapps.mobicart;
 
-import com.touchmenotapps.mobicart.adapters.SectionsPagerAdapter;
-import com.touchmenotapps.mobicart.util.ZoomOutPageTransformer;
+import com.touchmenotapps.mobicart.fragments.CategoriesFragment;
+import com.touchmenotapps.mobicart.fragments.FeaturedFragment;
+import com.touchmenotapps.mobicart.fragments.ProductListFragment;
 
 import android.app.ActionBar;
+import android.app.Activity;
+import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends FragmentActivity implements
+public class MainActivity extends Activity implements
 		ActionBar.TabListener {
-
-	private SectionsPagerAdapter mSectionsPagerAdapter;
-	private ViewPager mViewPager;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -24,31 +22,19 @@ public class MainActivity extends FragmentActivity implements
 		setContentView(R.layout.activity_main);
 		final ActionBar actionBar = getActionBar();
 		actionBar.setDisplayShowTitleEnabled(false);
-		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		actionBar.setBackgroundDrawable(getResources().getDrawable(R.drawable.shape_action_bar_bg));
-		mSectionsPagerAdapter = new SectionsPagerAdapter(
-				getSupportFragmentManager());
-		mViewPager = (ViewPager) findViewById(R.id.pager);
-		mViewPager.setAdapter(mSectionsPagerAdapter);
-		mViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
-		mViewPager
-				.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-					@Override
-					public void onPageSelected(int position) {
-						actionBar.setSelectedNavigationItem(position);
-					}
-				});
-
-		// For each of the sections in the app, add a tab to the action bar.
-		for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
-			actionBar.addTab(actionBar.newTab()
-					.setText(mSectionsPagerAdapter.getPageTitle(i))
-					.setTabListener(this));
+		//Tabbed main menu only for phones
+		if(findViewById(R.id.container) != null) {			
+			actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);			
+			// For each of the sections in the app, add a tab to the action bar.
+			for (int i = 0; i < getResources().getStringArray(R.array.tab_names).length; i++) {
+				actionBar.addTab(actionBar.newTab()
+						.setText(getResources().getStringArray(R.array.tab_names)[i])
+						.setTabListener(this));
+			}
+			//Init with the featured Items page
+			actionBar.setSelectedNavigationItem(1);
 		}
-		
-		//Init with the featured Items page
-		actionBar.setSelectedNavigationItem(1);
-		mViewPager.setCurrentItem(1);
 	}
 
 	@Override
@@ -79,7 +65,20 @@ public class MainActivity extends FragmentActivity implements
 	@Override
 	public void onTabSelected(ActionBar.Tab tab,
 			FragmentTransaction fragmentTransaction) {
-		mViewPager.setCurrentItem(tab.getPosition());
+		Fragment fragment = null;
+		switch(tab.getPosition()) {
+		case 0:
+			fragment = new CategoriesFragment();
+			break;
+		case 1:
+			fragment = new FeaturedFragment();
+			break;
+		case 2:
+			fragment = new ProductListFragment();
+			break;
+		}
+		getFragmentManager().beginTransaction()
+			.replace(R.id.container, fragment).commit();
 	}
 
 	@Override

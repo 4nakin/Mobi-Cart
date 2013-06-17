@@ -8,11 +8,11 @@ import com.touchmenotapps.mobicart.adapters.ShopListAdapter;
 import com.touchmenotapps.mobicart.model.ShopData;
 import com.touchmenotapps.mobicart.util.TopDealsDataLoader;
 
+import android.app.ListFragment;
+import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Intent;
+import android.content.Loader;
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
-import android.support.v4.app.LoaderManager.LoaderCallbacks;
-import android.support.v4.content.Loader;
 import android.view.View;
 import android.widget.ListView;
 

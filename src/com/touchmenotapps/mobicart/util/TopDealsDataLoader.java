@@ -9,8 +9,8 @@ import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
+import android.content.AsyncTaskLoader;
 import android.content.Context;
-import android.support.v4.content.AsyncTaskLoader;
 
 import com.touchmenotapps.mobicart.R;
 import com.touchmenotapps.mobicart.model.ShopData;

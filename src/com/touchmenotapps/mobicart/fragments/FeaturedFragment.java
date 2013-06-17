@@ -12,12 +12,12 @@ import com.touchmenotapps.mobicart.util.FeaturedDataLoader;
 import com.touchmenotapps.mobicart.util.NetworkUtil;
 import com.touchmenotapps.mobicart.widgets.TouchHighlightImageButton;
 
+import android.app.Fragment;
+import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Intent;
+import android.content.Loader;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager.LoaderCallbacks;
-import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;

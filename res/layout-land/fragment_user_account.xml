@@ -10,6 +10,7 @@
         android:layout_above="@+id/profile_footer_layout"
         android:divider="?android:dividerVertical"
         android:dividerPadding="5dp"
+        android:gravity="center"
         android:orientation="horizontal"
         android:showDividers="middle" >
 

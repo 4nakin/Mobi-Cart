@@ -6,14 +6,15 @@
     <dimen name="shop_list_adapter_price_text_size">18sp</dimen>
     <dimen name="cart_item_title_text_size">24sp</dimen>
     <dimen name="cart_item_sub_title_text_size">22sp</dimen>
-    <dimen name="featured_item_title_text_size">36sp</dimen>
-    <dimen name="featured_item_sub_title_text_size">24sp</dimen>
-    <dimen name="featured_item_price_text_size">36sp</dimen>
+    <dimen name="featured_item_title_text_size">24sp</dimen>
+    <dimen name="featured_item_sub_title_text_size">20sp</dimen>
+    <dimen name="featured_item_price_text_size">24sp</dimen>
     <dimen name="details_title_text_size">24sp</dimen>
     <dimen name="details_sub_title_text_size">20sp</dimen>
     <dimen name="details_price_text_size">24sp</dimen>
     <dimen name="details_available_text_size">24sp</dimen>
     <dimen name="details_description_text_size">22sp</dimen>
+    <dimen name="gallery_counter_text_size">24sp</dimen>
     
     <dimen name="cart_item_add_button_width">64dp</dimen>
     <dimen name="details_banner_image_height">300dp</dimen>

@@ -1,0 +1,76 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:divider="?android:dividerHorizontal"
+    android:orientation="vertical"
+    android:showDividers="middle"
+    tools:context=".MainActivity" >
+
+    <fragment
+        android:name="com.touchmenotapps.mobicart.fragments.FeaturedFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:tag="@string/features_deals_fragment" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:divider="?android:dividerVertical"
+        android:showDividers="middle" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="@android:color/black"
+                android:fontFamily="sans-serif-condensed"
+                android:padding="5dp"
+                android:text="@string/top_deals"
+                android:textColor="@color/yellow"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <fragment
+                android:name="com.touchmenotapps.mobicart.fragments.ProductListFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:tag="@string/top_deals_list_fragment" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="@android:color/black"
+                android:fontFamily="sans-serif-light"
+                android:gravity="right"
+                android:padding="5dp"
+                android:text="@string/browse_categories"
+                android:textColor="@color/yellow"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <fragment
+                android:name="com.touchmenotapps.mobicart.fragments.CategoriesFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:tag="@string/categories_list_fragment" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <com.touchmenotapps.mobicart.widgets.TouchHighlightImageButton
+        android:id="@+id/featured_banner_image"
+        android:layout_above="@+id/featured_banner_footer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="center"
+        android:src="@drawable/ic_loading" />
+
+    <LinearLayout
+        android:id="@+id/featured_banner_footer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/white"
+        android:orientation="vertical" >
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="7dp"
+            android:background="@drawable/shape_shadow" />
+
+        <TextView
+            android:id="@+id/featured_banner_title_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text="@string/app_name"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/featured_item_title_text_size" />
+
+        <TextView
+            android:id="@+id/featured_banner_vendor_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text="@string/app_name"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="@dimen/featured_item_sub_title_text_size" />
+
+        <TextView
+            android:id="@+id/featured_banner_price_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:paddingBottom="7dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text="@string/app_name"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="@dimen/featured_item_price_text_size" />
+    </LinearLayout>
+
+</RelativeLayout>

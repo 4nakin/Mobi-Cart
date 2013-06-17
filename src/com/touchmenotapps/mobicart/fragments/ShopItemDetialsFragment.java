@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.net.URL;
 
 import com.touchmenotapps.mobicart.DetailsActivity;
+import com.touchmenotapps.mobicart.GalleryActivity;
 import com.touchmenotapps.mobicart.R;
 import com.touchmenotapps.mobicart.db.AppDBAdapter;
 import com.touchmenotapps.mobicart.model.ShopData;
@@ -13,6 +14,7 @@ import com.touchmenotapps.mobicart.widgets.TouchHighlightImageButton;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -63,7 +65,12 @@ public class ShopItemDetialsFragment extends Fragment {
 		mGalleryButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				
+				if(mImages != null) {
+					Intent intent = new Intent(getActivity(), GalleryActivity.class);
+					intent.putExtra(DetailsActivity.TAG_ITEM_IMAGE_URLS, mImages);
+					startActivity(intent);
+				} else 
+					Toast.makeText(getActivity(), R.string.msg_no_gallery_image, Toast.LENGTH_LONG).show();
 			}
 		});
 		
