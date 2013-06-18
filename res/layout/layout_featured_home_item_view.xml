@@ -9,8 +9,8 @@
         android:layout_above="@+id/featured_banner_footer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="center"
-        android:src="@drawable/ic_loading" />
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_launcher" />
 
     <LinearLayout
         android:id="@+id/featured_banner_footer_layout"

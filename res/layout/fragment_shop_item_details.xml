@@ -9,8 +9,8 @@
         android:id="@+id/detials_header_image"
         android:layout_width="match_parent"
         android:layout_height="@dimen/details_banner_image_height"
-        android:scaleType="center"
-        android:src="@drawable/ic_loading" />
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_launcher" />
     
     <View
         android:layout_width="match_parent"
