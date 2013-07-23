@@ -46,6 +46,7 @@
 	<string name="browse_categories">Browse by Categories</string>
 	<string name="top_deals">Top Deals</string>
 	<string name="featured_items">Featured Deals</string>
+	<string name="please_wait">Please Wait..</string>
 	
 	<string name="my_account_category_frarment">MyAccountCategoriesFragment</string>
 	<string name="shopping_list_frarment">ShoppingListFragment</string>
@@ -65,6 +66,7 @@
 	<string name="msg_no_gallery_image">There are no product images</string>
 	<string name="msg_no_internet_connection">An error occoured while fetching data</string>
 	
+	<string name="error_upload_purchase_item">An error occured while processing your request</string>
 	<string name="error_server_data_fetching">Error while fetching data from the server</string>
 	
 	<string-array name="my_account_list">

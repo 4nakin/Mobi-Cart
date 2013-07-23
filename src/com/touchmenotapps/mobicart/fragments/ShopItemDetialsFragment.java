@@ -184,7 +184,7 @@ public class ShopItemDetialsFragment extends Fragment {
 			@Override
 			public void onClick(DialogInterface arg0, int arg1) {
 				dbAdapter.open();
-				dbAdapter.insertCartItem(mData, mItemPrice * mQuantity.getValue());
+				dbAdapter.insertCartItem(mData, mQuantity.getValue(), mItemPrice);
 				dbAdapter.close();
 				Toast.makeText(getActivity(), R.string.msg_added_to_cart, Toast.LENGTH_SHORT).show();
 				mPurchaseDialog.dismiss();

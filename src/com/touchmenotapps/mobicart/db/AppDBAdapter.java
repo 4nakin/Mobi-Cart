@@ -23,6 +23,7 @@ public class AppDBAdapter {
 	private static final String DATABASE_TABLE_CART_ROWID = "_mobiCartRowID";
 	private static final String DATABASE_TABLE_CART_ITEM_CODE = "_mobiCartItemCode";
 	private static final String DATABASE_TABLE_CART_TITLE = "_mobiCartTitle";
+	private static final String DATABASE_TABLE_CART_QUANTITY = "_mobiCartQuantity";
 	private static final String DATABASE_TABLE_CART_PRICE = "_mobiCartPrice";
 	private static final String DATABASE_TABLE_CART_CURRENCY = "_mobiCartCurrency";
 	
@@ -44,7 +45,7 @@ public class AppDBAdapter {
 	private static final String DATABASE_TABLE_IMAGES_URL = "_mobiCartImageURL";
 	
 	private static final String DATABASE_CREATE_TABLE_CART = "create table _mobiCart (_mobiCartRowID integer primary key autoincrement, _mobiCartItemCode text not null, _mobiCartTitle text not null, "
-			+ "_mobiCartPrice float not null, _mobiCartCurrency text not null);";
+			+ "_mobiCartQuantity integer not null, _mobiCartPrice float not null, _mobiCartCurrency text not null);";
 	
 	private static final String DATABASE_CREATE_TABLE_WISHLIST = "create table _mobiCartWishlist (_mobiCartWishlistRowID integer primary key autoincrement, _mobiCartWishlistItemCode text not null, _mobiCartWishlistTitle text not null, "
 			+ "_mobiCartWishlistDescription text not null, _mobiCartWishlistVendor text not null, _mobiCartWishlistAvailable text not null, _mobiCartWishlistMaxQuantity integer not null, _mobiCartWishlistPrice float not null, _mobiCartWishlistCurrency text not null, _mobiCartWishlistCategory text not null);";
@@ -94,11 +95,12 @@ public class AppDBAdapter {
 		DBHelper.close();
 	}
 	
-	public long insertCartItem(ShopData data, float price) {
+	public long insertCartItem(ShopData data, int quantity, float price) {
 		ContentValues initialValues = new ContentValues();
 		initialValues.put(DATABASE_TABLE_CART_ITEM_CODE, data.getItemCode());
 		initialValues.put(DATABASE_TABLE_CART_TITLE, data.getTitle());
-		initialValues.put(DATABASE_TABLE_CART_PRICE, price);
+		initialValues.put(DATABASE_TABLE_CART_QUANTITY, quantity);
+		initialValues.put(DATABASE_TABLE_CART_PRICE, quantity*price);
 		initialValues.put(DATABASE_TABLE_CART_CURRENCY, data.getPriceCurrency());
 		return db.insert(DATABASE_TABLE_CART, null, initialValues);
 	}
@@ -150,11 +152,12 @@ public class AppDBAdapter {
 	
 	public Cursor getAllCartItems() {
 		return db.query(DATABASE_TABLE_CART,
-				new String[] { DATABASE_TABLE_CART_ROWID, // 0
+				new String[] { DATABASE_TABLE_CART_ROWID, //0
 				DATABASE_TABLE_CART_ITEM_CODE, // 1
 				DATABASE_TABLE_CART_TITLE, // 2
-				DATABASE_TABLE_CART_PRICE,//3
-				DATABASE_TABLE_CART_CURRENCY}, // 4
+				DATABASE_TABLE_CART_QUANTITY,//3
+				DATABASE_TABLE_CART_PRICE,//4
+				DATABASE_TABLE_CART_CURRENCY}, //5
 				null, null, null, null,
 				null, null);
 	}

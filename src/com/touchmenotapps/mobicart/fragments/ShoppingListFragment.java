@@ -1,7 +1,7 @@
 package com.touchmenotapps.mobicart.fragments;
 
 import com.touchmenotapps.mobicart.adapters.ShopListAdapter;
-import com.touchmenotapps.mobicart.model.ShopData;
+import com.touchmenotapps.mobicart.interfaces.OnShopListItemClickListener;
 
 import android.app.Activity;
 import android.app.ListFragment;
@@ -12,12 +12,7 @@ import android.widget.ListView;
 public class ShoppingListFragment extends ListFragment {
 
 	private ShopListAdapter mAdapter;
-	
 	private OnShopListItemClickListener mCallback;
-	
-	public interface OnShopListItemClickListener {
-		public void onShopListItemClick(ShopData data);
-	}
 	
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {

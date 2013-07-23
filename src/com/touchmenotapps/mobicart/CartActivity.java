@@ -1,11 +1,16 @@
 package com.touchmenotapps.mobicart;
 
+import java.util.ArrayList;
+
 import com.touchmenotapps.mobicart.db.AppDBAdapter;
+import com.touchmenotapps.mobicart.interfaces.OnPurchaseSuccessListener;
 import com.touchmenotapps.mobicart.model.ShopData;
+import com.touchmenotapps.mobicart.util.CartPurchaseAsyncTask;
 
 import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,12 +19,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class CartActivity extends Activity {
+public class CartActivity extends Activity implements OnPurchaseSuccessListener {
 
 	private ViewGroup mContainerView;
 	private float mTotalPrice = 0;
 	private String mCurrency = null;
 	private AppDBAdapter dbAdapter;
+	private ArrayList<ShopData> mCartItems = new ArrayList<ShopData>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,23 +42,16 @@ public class CartActivity extends Activity {
 				new OnClickListener() {
 					@Override
 					public void onClick(View arg0) {
-						if (mContainerView.getChildCount() > 0) {
-							mContainerView.removeAllViews();
-							findViewById(R.id.cart_empty_text).setVisibility(
-									View.VISIBLE);
-							Toast.makeText(CartActivity.this,
-									R.string.msg_remove_all_cart,
-									Toast.LENGTH_SHORT).show();
-							mTotalPrice = 0;
-							dbAdapter.open();
-							dbAdapter.deleteAllCartItems();
-							dbAdapter.close();
-							((TextView) findViewById(R.id.cart_total_text))
-									.setText(String.valueOf(mTotalPrice) + " "
-											+ mCurrency);
-						}
+						clearCart();
 					}
 				});
+		
+		findViewById(R.id.cart_payment_btn).setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				new CartPurchaseAsyncTask(CartActivity.this, CartActivity.this).execute(formXMLServerRequest());
+			}
+		});
 	}
 	
 	@Override
@@ -70,10 +69,11 @@ public class CartActivity extends Activity {
 						data.setDBRowNum(mCursor.getInt(0));
 						data.setItemCode(mCursor.getString(1));
 						data.setTitle(mCursor.getString(2));
-						data.setPrice(mCursor.getFloat(3));
-						mTotalPrice += mCursor.getFloat(3);
-						data.setPriceCurrency(mCursor.getString(4));
-						mCurrency = mCursor.getString(4);
+						data.setMaxQuantity(mCursor.getInt(3));
+						data.setPrice(mCursor.getFloat(4));
+						mTotalPrice += mCursor.getFloat(4);
+						data.setPriceCurrency(mCursor.getString(5));
+						mCurrency = mCursor.getString(5);
 						addItem(data);
 					} while (mCursor.moveToNext());
 				}
@@ -105,6 +105,7 @@ public class CartActivity extends Activity {
 	 * @param data
 	 */
 	private void addItem(final ShopData data) {
+		mCartItems.add(data);
 		final ViewGroup mViewCartItemHolder = (ViewGroup) LayoutInflater.from(
 				this).inflate(R.layout.layout_cart_item, mContainerView, false);
 		((TextView) mViewCartItemHolder.findViewById(R.id.cart_item_title))
@@ -125,6 +126,7 @@ public class CartActivity extends Activity {
 						dbAdapter.open();
 						dbAdapter.deleteCartItem(data.getDBRowNum());
 						dbAdapter.close();
+						mCartItems.remove(data);
 						mContainerView.removeView(mViewCartItemHolder);
 						if (mContainerView.getChildCount() == 0) {
 							findViewById(R.id.cart_empty_text).setVisibility(
@@ -133,5 +135,40 @@ public class CartActivity extends Activity {
 					}
 				});
 		mContainerView.addView(mViewCartItemHolder, 0);
+	}
+	
+	private String formXMLServerRequest() {
+		String response = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><customer EMAIL=\"hariharan.pwt@gmail.com\">";
+		for(ShopData data : mCartItems) {
+			response = response + "<shop-item><item-code>" + data.getItemCode() + 
+					"</item-code><max-quantity>" + data.getMaxQuantity() + 
+					"</max-quantity></shop-item>";
+		}
+		response = response + "</customer>";
+		Log.i(getClass().getName(), response);
+		return response;
+	}
+	
+	private void clearCart() {
+		if (mContainerView.getChildCount() > 0) {
+			mContainerView.removeAllViews();
+			findViewById(R.id.cart_empty_text).setVisibility(
+					View.VISIBLE);
+			Toast.makeText(CartActivity.this,
+					R.string.msg_remove_all_cart,
+					Toast.LENGTH_SHORT).show();
+			mTotalPrice = 0;
+			dbAdapter.open();
+			dbAdapter.deleteAllCartItems();
+			dbAdapter.close();
+			((TextView) findViewById(R.id.cart_total_text))
+					.setText(String.valueOf(mTotalPrice) + " "
+							+ mCurrency);
+		}
+	}
+
+	@Override
+	public void onPurchaseSuccess() {
+		clearCart();
 	}
 }

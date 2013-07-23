@@ -3,6 +3,7 @@ package com.touchmenotapps.mobicart;
 import com.touchmenotapps.mobicart.fragments.MyAccountCategoriesFragment;
 import com.touchmenotapps.mobicart.fragments.UserAccountFragment;
 import com.touchmenotapps.mobicart.fragments.WishlistFragment;
+import com.touchmenotapps.mobicart.interfaces.OnCategorySelectedListener;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,7 +15,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.Toast;
 
-public class MyAccountActivity extends FragmentActivity implements MyAccountCategoriesFragment.OnCatgeorySelectedListener {
+public class MyAccountActivity extends FragmentActivity implements OnCategorySelectedListener {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

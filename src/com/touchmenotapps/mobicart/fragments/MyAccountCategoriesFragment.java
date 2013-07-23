@@ -10,17 +10,14 @@ import android.widget.ListView;
 
 import com.touchmenotapps.mobicart.R;
 import com.touchmenotapps.mobicart.adapters.CategoriesListAdapter;
+import com.touchmenotapps.mobicart.interfaces.OnCategorySelectedListener;
 import com.touchmenotapps.mobicart.model.CategoryData;
 
 public class MyAccountCategoriesFragment extends ListFragment {
 	
 	private CategoriesListAdapter mAdapter;
-	private OnCatgeorySelectedListener mCallback;
-	
-	public interface OnCatgeorySelectedListener {
-		public void onCategorySelected(int which);
-	}
-	
+	private OnCategorySelectedListener mCallback;
+		
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
@@ -42,7 +39,7 @@ public class MyAccountCategoriesFragment extends ListFragment {
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 		try {
-			mCallback = (OnCatgeorySelectedListener) activity;
+			mCallback = (OnCategorySelectedListener) activity;
 		} catch (ClassCastException e) {
 			throw new ClassCastException(activity.toString()
 					+ " must implement OnHeadlineSelectedListener");
