@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:overScrollMode="never" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp" >
+
+            <TextView
+                style="@style/RegistartionHeaderText"
+                android:drawableLeft="@drawable/ic_action_user"
+                android:text="@string/personal_info" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/slider_bg"
+                android:orientation="vertical" >
+
+                <EditText
+                    android:id="@+id/register_first_name"
+                    style="@style/AccountEditTextStyle"
+                    android:hint="@string/first_name"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPersonName"
+                    android:singleLine="true" />
+
+                <EditText
+                    android:id="@+id/register_last_name"
+                    style="@style/AccountEditTextStyle"
+                    android:hint="@string/last_name"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPersonName"
+                    android:singleLine="true" />
+
+                <EditText
+                    android:id="@+id/register_email_address"
+                    style="@style/AccountEditTextStyle"
+                    android:hint="@string/email"
+                    android:imeOptions="actionNext"
+                    android:inputType="textWebEmailAddress"
+                    android:singleLine="true" />
+
+                <EditText
+                    android:id="@+id/register_phone"
+                    style="@style/AccountEditTextStyle"
+                    android:hint="@string/phone"
+                    android:imeOptions="actionNext"
+                    android:inputType="phone"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+            <TextView
+                style="@style/RegistartionHeaderText"
+                android:drawableLeft="@drawable/ic_action_address"
+                android:text="@string/shipping_info" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/slider_bg"
+                android:orientation="vertical" >
+
+                <EditText
+                    android:id="@+id/register_address"
+                    style="@style/AccountEditTextStyle"
+                    android:hint="@string/address"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPostalAddress"
+                    android:lines="2" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="?android:dividerVertical"
+                    android:dividerPadding="5dp"
+                    android:orientation="horizontal"
+                    android:showDividers="middle" >
+
+                    <EditText
+                        android:id="@+id/register_city"
+                        style="@style/AccountEditTextStyle"
+                        android:layout_weight="1"
+                        android:hint="@string/city"
+                        android:imeOptions="actionNext"
+                        android:singleLine="true" />
+
+                    <EditText
+                        android:id="@+id/register_state"
+                        style="@style/AccountEditTextStyle"
+                        android:layout_weight="1"
+                        android:hint="@string/state"
+                        android:imeOptions="actionNext"
+                        android:singleLine="true" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="?android:dividerVertical"
+                    android:dividerPadding="5dp"
+                    android:orientation="horizontal"
+                    android:showDividers="middle" >
+
+                    <EditText
+                        android:id="@+id/register_zipcode"
+                        style="@style/AccountEditTextStyle"
+                        android:layout_weight="1"
+                        android:hint="@string/zipcode"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:singleLine="true" />
+
+                    <EditText
+                        android:id="@+id/register_country"
+                        style="@style/AccountEditTextStyle"
+                        android:layout_weight="1"
+                        android:hint="@string/country"
+                        android:imeOptions="actionNext"
+                        android:singleLine="true" />
+                </LinearLayout>
+            </LinearLayout>
+            
+            <TextView
+               style="@style/RegistartionHeaderText"
+                android:drawableLeft="@drawable/ic_action_password"
+                android:text="@string/password"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/slider_bg"
+                android:orientation="vertical" >
+
+                <EditText
+                    android:id="@+id/register_password"
+                    style="@style/AccountEditTextStyle"
+                    android:hint="@string/password"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPassword"
+                    android:singleLine="true" />
+
+                <EditText
+                    android:id="@+id/register_confirm_password"
+                    style="@style/AccountEditTextStyle"
+                    android:hint="@string/confirm_password"
+                    android:imeOptions="actionDone"
+                    android:inputType="textPassword"
+                    android:singleLine="true" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="7dp"
+        android:background="@drawable/shape_shadow" />
+
+    <Button
+        android:id="@+id/register_done_btn"
+        style="@style/ClickableTransparentButton"
+        android:drawableRight="@drawable/ic_action_next"
+        android:text="@string/register" />
+
+</LinearLayout>

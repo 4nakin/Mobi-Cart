@@ -26,6 +26,12 @@
 	<string name="out_of_stock">Out Of Stock</string>
 	<string name="first_name">First Name</string>
 	<string name="last_name">Last Name</string>
+	<string name="city">City</string>
+	<string name="state">State</string>
+	<string name="zipcode">Zip Code</string>
+	<string name="country">Country</string>
+	<string name="password">Password</string>
+	<string name="confirm_password">Confirm Password</string>
 	<string name="save">Save</string>
 	<string name="change_password">Change Password</string>
 	<string name="clear_history">Clear Order History</string>
@@ -47,6 +53,9 @@
 	<string name="top_deals">Top Deals</string>
 	<string name="featured_items">Featured Deals</string>
 	<string name="please_wait">Please Wait..</string>
+	<string name="register">Register</string>
+	<string name="personal_info">Personal Info</string>
+	<string name="shipping_info">Shipping Info</string>
 	
 	<string name="my_account_category_frarment">MyAccountCategoriesFragment</string>
 	<string name="shopping_list_frarment">ShoppingListFragment</string>
@@ -65,8 +74,9 @@
 	<string name="msg_out_of_stock">This item is out of stock!</string>
 	<string name="msg_no_gallery_image">There are no product images</string>
 	<string name="msg_no_internet_connection">An error occoured while fetching data</string>
+	<string name="msg_order_success">You will receive a mail shortly with your order details. Your order ID is</string>
 	
-	<string name="error_upload_purchase_item">An error occured while processing your request</string>
+	<string name="error_upload_purchase_item">An error occurred while processing your request</string>
 	<string name="error_server_data_fetching">Error while fetching data from the server</string>
 	
 	<string-array name="my_account_list">

@@ -44,15 +44,24 @@ public class ShopListAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
+		final ViewHolder holder;
 		if (convertView == null) {
 			convertView = mInflator.inflate(R.layout.adapter_shop_list, null);
-			TextView mTitleText = (TextView) convertView.findViewById(R.id.shop_list_title_text);
-			TextView mDescriptionText = (TextView) convertView.findViewById(R.id.shop_list_description_text);
-			TextView mPriceText = (TextView) convertView.findViewById(R.id.shop_list_price_text);
-			mTitleText.setText(mListData.get(position).getTitle());
-			mDescriptionText.setText(mListData.get(position).getVendor());
-			mPriceText.setText(String.valueOf(mListData.get(position).getPrice()) + " " + mListData.get(position).getPriceCurrency());
-		}
+			holder = new ViewHolder();
+			holder.mTitleText = (TextView) convertView.findViewById(R.id.shop_list_title_text);
+			holder.mDescriptionText = (TextView) convertView.findViewById(R.id.shop_list_description_text);
+			holder.mPriceText = (TextView) convertView.findViewById(R.id.shop_list_price_text);
+			convertView.setTag(holder);
+		} else 
+			holder = (ViewHolder) convertView.getTag();
+		
+		holder.mTitleText.setText(mListData.get(position).getTitle());
+		holder.mDescriptionText.setText(mListData.get(position).getVendor());
+		holder.mPriceText.setText(String.valueOf(mListData.get(position).getPrice()) + " " + mListData.get(position).getPriceCurrency());
 		return convertView;
+	}
+	
+	static class ViewHolder {
+		TextView mTitleText, mDescriptionText, mPriceText;
 	}
 }

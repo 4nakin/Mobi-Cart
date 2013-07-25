@@ -1,19 +1,15 @@
 package com.touchmenotapps.mobicart;
 
-import java.io.InputStream;
-
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-
-import org.xml.sax.InputSource;
-import org.xml.sax.XMLReader;
+import java.util.ArrayList;
 
 import com.touchmenotapps.mobicart.adapters.ShopListAdapter;
-import com.touchmenotapps.mobicart.util.CategoryXMLHandler;
+import com.touchmenotapps.mobicart.model.ShopData;
+import com.touchmenotapps.mobicart.util.SearchDataLoader;
 
 import android.app.Activity;
+import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Intent;
-import android.os.AsyncTask;
+import android.content.Loader;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,8 +20,9 @@ import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-public class SearchActivity extends Activity {
+public class SearchActivity extends Activity implements LoaderCallbacks<ArrayList<ShopData>> {
 	
+	private final int LOADER_ID = 1;
 	private ListView mList;
 	private EditText mSearchQuery;
  	private ShopListAdapter mAdapter;
@@ -39,12 +36,12 @@ public class SearchActivity extends Activity {
 		mAdapter = new ShopListAdapter(this);
 		mSearchQuery = (EditText) findViewById(R.id.search_edittext);
 		mList = (ListView) findViewById(R.id.search_result_list);
-		
+		mList.setAdapter(mAdapter);
 		findViewById(R.id.search_go_btn).setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				if(mSearchQuery.getText().toString().trim().length() > 0)
-					new RetreiveFeedTask().execute("");
+					getLoaderManager().initLoader(LOADER_ID, null, SearchActivity.this).forceLoad();
 				else 
 					Toast.makeText(SearchActivity.this, R.string.msg_enter_search, Toast.LENGTH_LONG).show();
 			}
@@ -81,35 +78,24 @@ public class SearchActivity extends Activity {
 		return true;
 	}
 	
-	class RetreiveFeedTask extends AsyncTask<String, Void, String> {
-        protected String doInBackground(String... urls) {
-            try {
-                //URL url= new URL(urls[0]);
-                SAXParserFactory factory =SAXParserFactory.newInstance();
-                SAXParser parser=factory.newSAXParser();
-                XMLReader xmlreader=parser.getXMLReader();
-                
-                CategoryXMLHandler mResponseHandler=new CategoryXMLHandler();
-                xmlreader.setContentHandler(mResponseHandler);
-                //InputSource is=new InputSource(url.openStream());
-                InputStream is = getResources().openRawResource(R.raw.dummy_search);
-                xmlreader.parse(new InputSource(is));
-                mAdapter.setListData(mResponseHandler.getData().get(0).getShopData());
-                return "";
-            } catch (Exception e) {
-                e.printStackTrace();
-                return null;
-            }
-        }
+	@Override
+	public Loader<ArrayList<ShopData>> onCreateLoader(int arg0, Bundle arg1) {
+		Loader<ArrayList<ShopData>> loader = new SearchDataLoader(this);
+		loader.forceLoad();
+		return loader;
+	}
 
-        protected void onPostExecute(String feed) {
-        	if(feed != null) 
-        		if(mAdapter.getCount() > 0) {
-        			mList.setAdapter(mAdapter);
-        		}
-        	else {
-        		Toast.makeText(SearchActivity.this, R.string.error_server_data_fetching, Toast.LENGTH_LONG).show();
-        	}
-        }
-     }
+	@Override
+	public void onLoadFinished(Loader<ArrayList<ShopData>> arg0,
+			ArrayList<ShopData> data) {
+		if(data.size() > 0) 
+			mAdapter.setListData(data);
+		else 
+			Toast.makeText(SearchActivity.this, R.string.error_server_data_fetching, Toast.LENGTH_LONG).show();
+	}
+
+	@Override
+	public void onLoaderReset(Loader<ArrayList<ShopData>> arg0) {
+		mAdapter.setListData(new ArrayList<ShopData>());
+	}
 }

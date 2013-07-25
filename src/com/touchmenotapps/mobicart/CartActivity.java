@@ -10,7 +10,6 @@ import com.touchmenotapps.mobicart.util.CartPurchaseAsyncTask;
 import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -49,7 +48,8 @@ public class CartActivity extends Activity implements OnPurchaseSuccessListener 
 		findViewById(R.id.cart_payment_btn).setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				new CartPurchaseAsyncTask(CartActivity.this, CartActivity.this).execute(formXMLServerRequest());
+				new CartPurchaseAsyncTask(CartActivity.this, CartActivity.this)
+					.execute(mCartItems.toArray(new ShopData[mCartItems.size()]));
 			}
 		});
 	}
@@ -136,19 +136,7 @@ public class CartActivity extends Activity implements OnPurchaseSuccessListener 
 				});
 		mContainerView.addView(mViewCartItemHolder, 0);
 	}
-	
-	private String formXMLServerRequest() {
-		String response = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><customer EMAIL=\"hariharan.pwt@gmail.com\">";
-		for(ShopData data : mCartItems) {
-			response = response + "<shop-item><item-code>" + data.getItemCode() + 
-					"</item-code><max-quantity>" + data.getMaxQuantity() + 
-					"</max-quantity></shop-item>";
-		}
-		response = response + "</customer>";
-		Log.i(getClass().getName(), response);
-		return response;
-	}
-	
+		
 	private void clearCart() {
 		if (mContainerView.getChildCount() > 0) {
 			mContainerView.removeAllViews();
@@ -168,7 +156,11 @@ public class CartActivity extends Activity implements OnPurchaseSuccessListener 
 	}
 
 	@Override
-	public void onPurchaseSuccess() {
+	public void onPurchaseSuccess(int orderID) {
 		clearCart();
+		Toast.makeText(this, 
+				getString(R.string.msg_order_success) + " " + 
+						String.valueOf(orderID), 
+				Toast.LENGTH_LONG).show();
 	}
 }

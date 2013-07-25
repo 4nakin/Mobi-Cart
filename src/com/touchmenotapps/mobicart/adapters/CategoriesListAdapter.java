@@ -44,11 +44,20 @@ public class CategoriesListAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
+		final ViewHolder holder;
 		if (convertView == null) {
 			convertView = mInflator.inflate(R.layout.adapter_categories_list, null);
-			TextView mCategoryText = (TextView) convertView.findViewById(R.id.adapter_categories_title_text);
-			mCategoryText.setText(mData.get(position).getCategory());
-		}
+			holder = new ViewHolder();
+			holder.mCategoryText = (TextView) convertView.findViewById(R.id.adapter_categories_title_text);
+			convertView.setTag(holder);
+		} else 
+			holder = (ViewHolder) convertView.getTag();
+		
+		holder.mCategoryText.setText(mData.get(position).getCategory());
 		return convertView;
+	}
+	
+	static class ViewHolder {
+		TextView mCategoryText;
 	}
 }
