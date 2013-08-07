@@ -1,14 +1,12 @@
 package com.touchmenotapps.mobicart.fragments;
 
-import java.io.InputStream;
-import java.net.URL;
-
 import com.touchmenotapps.mobicart.DetailsActivity;
 import com.touchmenotapps.mobicart.GalleryActivity;
 import com.touchmenotapps.mobicart.R;
 import com.touchmenotapps.mobicart.db.AppDBAdapter;
+import com.touchmenotapps.mobicart.interfaces.OnImageDownloadComplete;
 import com.touchmenotapps.mobicart.model.ShopData;
-import com.touchmenotapps.mobicart.util.NetworkUtil;
+import com.touchmenotapps.mobicart.util.LoadImageFromWebTask;
 import com.touchmenotapps.mobicart.widgets.TouchHighlightImageButton;
 
 import android.app.AlertDialog;
@@ -16,7 +14,6 @@ import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -46,14 +43,12 @@ public class ShopItemDetialsFragment extends Fragment {
 	private boolean isWishlist = false, isAvailable = false;
 	private ShopData mData = new ShopData();
 	private long mDBRowID = -1;
-	private NetworkUtil mNetwokUtil;
 			
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		setHasOptionsMenu(true);
 		mViewHolder = inflater.inflate(R.layout.fragment_shop_item_details, null);
-		mNetwokUtil = new NetworkUtil();
 		dbAdapter = new AppDBAdapter(getActivity());
 		mPrice = (TextView) mViewHolder.findViewById(R.id.details_price_text);
 		mTitle = (TextView) mViewHolder.findViewById(R.id.details_title_text);
@@ -109,11 +104,12 @@ public class ShopItemDetialsFragment extends Fragment {
 		}
 		if(getArguments().getStringArray(DetailsActivity.TAG_ITEM_IMAGE_URLS) != null) {
 			mImages = getArguments().getStringArray(DetailsActivity.TAG_ITEM_IMAGE_URLS);
-			//Load image from the web
-			if(mNetwokUtil.isNetworkAvailable(getActivity()))
-				new LoadImageFromWebOperations().execute(mImages[0]);
-			else
-				mGalleryButton.setImageResource(R.drawable.ic_action_alert);
+			new LoadImageFromWebTask(getActivity(), new OnImageDownloadComplete() {			
+				@Override
+				public void onImageDownloadCompleted(Drawable drawable) {
+					mGalleryButton.setImageDrawable(drawable);
+				}
+			}).execute(mImages);
 		}
 		if(getArguments().getString(DetailsActivity.TAG_ITEM_CODE) != null)
 				mData.setItemCode(getArguments().getString(DetailsActivity.TAG_ITEM_CODE));
@@ -193,26 +189,6 @@ public class ShopItemDetialsFragment extends Fragment {
 		mPurchaseDialog.show();
 	}
 	
-	class LoadImageFromWebOperations extends AsyncTask<String, Void, Drawable> {
-        protected Drawable doInBackground(String... urls) {
-            try {
-    	        InputStream is = (InputStream) new URL(urls[0]).getContent();
-    	        Drawable d = Drawable.createFromStream(is, "image");
-    	        return d;
-    	    } catch (Exception e) {
-    	        e.printStackTrace();
-    	        return null;
-    	    }
-        }
-
-		protected void onPostExecute(Drawable drawable) {
-        	if(drawable != null) 
-        		mGalleryButton.setImageDrawable(drawable);
-        	else
-        		mGalleryButton.setImageResource(R.drawable.ic_action_alert);
-        }
-     }
-
 	public boolean isWishlist() {
 		return isWishlist;
 	}

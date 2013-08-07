@@ -1,15 +1,14 @@
 package com.touchmenotapps.mobicart.fragments;
 
-import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 
 import com.touchmenotapps.mobicart.DetailsActivity;
 import com.touchmenotapps.mobicart.R;
+import com.touchmenotapps.mobicart.interfaces.OnImageDownloadComplete;
 import com.touchmenotapps.mobicart.model.ShopData;
 import com.touchmenotapps.mobicart.util.AnimationUtil;
 import com.touchmenotapps.mobicart.util.FeaturedDataLoader;
-import com.touchmenotapps.mobicart.util.NetworkUtil;
+import com.touchmenotapps.mobicart.util.LoadImageFromWebTask;
 import com.touchmenotapps.mobicart.widgets.TouchHighlightImageButton;
 
 import android.app.Fragment;
@@ -33,13 +32,11 @@ public class FeaturedFragment extends Fragment implements LoaderCallbacks<ArrayL
 	private ViewAnimator mFeaturedViewHolder;
 	private AnimationUtil mAnimUtil;
 	private int TOTAL_BANNER_COUNT = 0;
-	private NetworkUtil mNetwokUtil;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		mAnimUtil = new AnimationUtil();
-		mNetwokUtil = new NetworkUtil();
 		mViewHolder = inflater.inflate(R.layout.fragment_home, null);
 		mFeaturedViewHolder = (ViewAnimator) mViewHolder.findViewById(R.id.home_fragment_view_holder);
 		mViewHolder.findViewById(R.id.home_prev_btn).setOnClickListener(new OnClickListener() {
@@ -97,24 +94,15 @@ public class FeaturedFragment extends Fragment implements LoaderCallbacks<ArrayL
 		((TextView) mBannerItemView.findViewById(R.id.featured_banner_title_text)).setText(data.getTitle());
 		((TextView) mBannerItemView.findViewById(R.id.featured_banner_vendor_text)).setText(data.getVendor());
 		((TextView) mBannerItemView.findViewById(R.id.featured_banner_price_text)).setText("Price: " + data.getPrice() + " " + data.getPriceCurrency());
-		if(mNetwokUtil.isNetworkAvailable(getActivity()))
-			mBannerBtn.setImageDrawable(loadImageFromWeb(data.getURLS()[0]));
-		else
-			mBannerBtn.setImageResource(R.drawable.ic_action_alert);
+		new LoadImageFromWebTask(getActivity(), new OnImageDownloadComplete() {			
+			@Override
+			public void onImageDownloadCompleted(Drawable drawable) {
+				mBannerBtn.setImageDrawable(drawable);
+			}
+		}).execute(data.getURLS());
 		mFeaturedViewHolder.addView(mBannerItemView, pos);
 	}
-	
-	private Drawable loadImageFromWeb(String URL) {
-		try {
-	        InputStream is = (InputStream) new URL(URL).getContent();
-	        Drawable d = Drawable.createFromStream(is, "image");
-	        return d;
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        return getResources().getDrawable(R.drawable.ic_action_alert);
-	    }
-	}
-		
+			
 	@Override
 	public Loader<ArrayList<ShopData>> onCreateLoader(int arg0, Bundle arg1) {
 		return new FeaturedDataLoader(getActivity());

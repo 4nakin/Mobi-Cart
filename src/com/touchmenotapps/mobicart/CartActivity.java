@@ -5,9 +5,11 @@ import java.util.ArrayList;
 import com.touchmenotapps.mobicart.db.AppDBAdapter;
 import com.touchmenotapps.mobicart.interfaces.OnPurchaseSuccessListener;
 import com.touchmenotapps.mobicart.model.ShopData;
+import com.touchmenotapps.mobicart.util.AppPreferences;
 import com.touchmenotapps.mobicart.util.CartPurchaseAsyncTask;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -25,16 +27,18 @@ public class CartActivity extends Activity implements OnPurchaseSuccessListener 
 	private String mCurrency = null;
 	private AppDBAdapter dbAdapter;
 	private ArrayList<ShopData> mCartItems = new ArrayList<ShopData>();
+	private AppPreferences mPrefs;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		dbAdapter = new AppDBAdapter(this);
+		super.onCreate(savedInstanceState);		
 		setContentView(R.layout.activity_cart);
 		getActionBar().setBackgroundDrawable(
 				getResources().getDrawable(R.drawable.shape_action_bar_bg));
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 
+		mPrefs = new AppPreferences(this);
+		dbAdapter = new AppDBAdapter(this);
 		mContainerView = (ViewGroup) findViewById(R.id.cart_container);
 
 		findViewById(R.id.cart_remove_all_btn).setOnClickListener(
@@ -42,14 +46,20 @@ public class CartActivity extends Activity implements OnPurchaseSuccessListener 
 					@Override
 					public void onClick(View arg0) {
 						clearCart();
+						Toast.makeText(CartActivity.this,
+								R.string.msg_remove_all_cart,
+								Toast.LENGTH_SHORT).show();
 					}
 				});
 		
 		findViewById(R.id.cart_payment_btn).setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				new CartPurchaseAsyncTask(CartActivity.this, CartActivity.this)
-					.execute(mCartItems.toArray(new ShopData[mCartItems.size()]));
+				if(mPrefs.isRegistrationComplete())
+					new CartPurchaseAsyncTask(CartActivity.this, CartActivity.this)
+						.execute(mCartItems.toArray(new ShopData[mCartItems.size()]));
+				else
+					startActivity(new Intent(CartActivity.this, RegisterActivity.class));
 			}
 		});
 	}
@@ -142,9 +152,6 @@ public class CartActivity extends Activity implements OnPurchaseSuccessListener 
 			mContainerView.removeAllViews();
 			findViewById(R.id.cart_empty_text).setVisibility(
 					View.VISIBLE);
-			Toast.makeText(CartActivity.this,
-					R.string.msg_remove_all_cart,
-					Toast.LENGTH_SHORT).show();
 			mTotalPrice = 0;
 			dbAdapter.open();
 			dbAdapter.deleteAllCartItems();
@@ -156,11 +163,8 @@ public class CartActivity extends Activity implements OnPurchaseSuccessListener 
 	}
 
 	@Override
-	public void onPurchaseSuccess(int orderID) {
+	public void onPurchaseSuccess() {
 		clearCart();
-		Toast.makeText(this, 
-				getString(R.string.msg_order_success) + " " + 
-						String.valueOf(orderID), 
-				Toast.LENGTH_LONG).show();
+		Toast.makeText(this, R.string.msg_order_success, Toast.LENGTH_LONG).show();
 	}
 }

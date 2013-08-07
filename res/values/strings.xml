@@ -74,13 +74,12 @@
 	<string name="msg_out_of_stock">This item is out of stock!</string>
 	<string name="msg_no_gallery_image">There are no product images</string>
 	<string name="msg_no_internet_connection">An error occoured while fetching data</string>
-	<string name="msg_order_success">You will receive a mail shortly with your order details. Your order ID is</string>
+	<string name="msg_order_success">Purchse successful. You will receive a mail shortly with your order details.</string>
 	
 	<string name="error_upload_purchase_item">An error occurred while processing your request</string>
 	<string name="error_server_data_fetching">Error while fetching data from the server</string>
 	
 	<string-array name="my_account_list">
-	    <item>Edit Profile</item>
 	    <item>Wishlist</item>
 	    <item>Order History</item>
 	    <item>Help</item>

@@ -61,7 +61,7 @@ public class MyAccountActivity extends FragmentActivity implements OnCategorySel
 	@Override
 	public void onCategorySelected(int which) {
 		switch(which) {
-		case 0:
+		case -1:
 			if(findViewById(R.id.my_account_single_pane_container) != null)
 				getSupportFragmentManager()
 					.beginTransaction()
@@ -74,7 +74,7 @@ public class MyAccountActivity extends FragmentActivity implements OnCategorySel
 					.replace(R.id.my_account_details_container, new UserAccountFragment())
 					.commit();
 			break;
-		case 1:
+		case 0:
 			if(findViewById(R.id.my_account_single_pane_container) != null)
 				getSupportFragmentManager()
 					.beginTransaction()
@@ -87,10 +87,10 @@ public class MyAccountActivity extends FragmentActivity implements OnCategorySel
 					.replace(R.id.my_account_details_container, new WishlistFragment())
 					.commit();
 			break;
-		case 2:
+		case 1:
 			Toast.makeText(this, R.string.feature_not_available, Toast.LENGTH_SHORT).show();
 			break;
-		case 3:
+		case 2:
 			if(findViewById(R.id.my_account_single_pane_container) != null)
 				getSupportFragmentManager()
 					.beginTransaction()
